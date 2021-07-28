@@ -9,7 +9,7 @@ mobile devices.
 
 ### 1.1 Files
 
-The script `./pushbullet.py` sens a push notifications to Pushbullet. The receiving
+The script `./pushbullet.py` sends a push notifications to Pushbullet. The receiving
 Pushbullet API keys are stored in `api-keys.txt`. This file is ignored by git
 and lines can be commented out by starting with `#`. The Python script expects
 the file with keys to be in the same directory as it is.
