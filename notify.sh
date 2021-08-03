@@ -15,3 +15,4 @@ else
         xmessage -buttons Close -nearmouse "$@ (and error for Pushbullet)"
     fi
 fi
+exit 0
