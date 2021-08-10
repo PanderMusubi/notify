@@ -16,12 +16,16 @@ __location__ = os.path.realpath(os.path.join(os.getcwd(),
 def get_keys():
     '''Get all API keys from the file api-keys.txt.'''
     keys = set()
-    with open(os.path.join(__location__, 'api-keys.txt')) as key_file:
-        for line in key_file:
-            line = line[:-1]
-            if line == '' or line[0] == '#':
-                continue
-            keys.add(line.strip())
+    try:
+        with open(os.path.join(__location__, 'api-keys.txt')) as key_file:
+            for line in key_file:
+                line = line[:-1]
+                if line == '' or line[0] == '#':
+                    continue
+                keys.add(line.strip())
+    except FileNotFoundError as fnoe:  # noqa:E501,F841  # pylint:disable=unused-variable
+        print('ERROR: Could open API key file')
+        sys.exit(1)
     if not keys:
         print('ERROR: Could not find any API key')
         sys.exit(1)
