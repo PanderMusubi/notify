@@ -51,10 +51,10 @@ async def _notify(key, title, body):
         async with AsyncPushbullet(key) as apb:
             for device in await apb.async_get_devices():
                 if device.icon == 'phone':
-                    push = await apb.async_push_note(title=title,  # noqa:E501,F841  # pylint:disable=unused-variable
-                                                     body=body,
-                                                     device=device)
-    except InvalidKeyError as ike:  # noqa:E501,F841  # pylint:disable=unused-variable
+                    _ = await apb.async_push_note(title=title,
+                                                  body=body,
+                                                  device=device)
+    except InvalidKeyError:
         print(f'ERROR: Invalid API key {key}')
         global ERROR  # pylint:disable=global-statement
         ERROR = True
