@@ -2,30 +2,37 @@
 '''Send push notification over Pushbullet to multiple accounts.'''
 
 import sys
-import os
+from os import path, getcwd
 from socket import gethostname
 from time import sleep
 
 from asyncio import get_event_loop
 from asyncpushbullet import AsyncPushbullet, InvalidKeyError
 
-__location__ = os.path.realpath(os.path.join(os.getcwd(),
-                                             os.path.dirname(__file__)))
+__location__ = path.realpath(path.join(getcwd(), path.dirname(__file__)))
 
 
 def get_keys():
     '''Get all API keys from the file api-keys.txt.'''
     keys = set()
     try:
-        with open(os.path.join(__location__, 'api-keys.txt')) as key_file:
+        with open('/usr/local/etc/pushbullet-api-keys.txt') as key_file:
             for line in key_file:
                 line = line[:-1]
                 if line == '' or line[0] == '#':
                     continue
                 keys.add(line.strip())
-    except FileNotFoundError as fnoe:  # noqa:E501,F841  # pylint:disable=unused-variable
-        print('ERROR: Could open API key file')
-        sys.exit(1)
+    except FileNotFoundError:
+        try:
+            with open(path.join(__location__, 'api-keys.txt')) as key_file:
+                for line in key_file:
+                    line = line[:-1]
+                    if line == '' or line[0] == '#':
+                        continue
+                    keys.add(line.strip())
+        except FileNotFoundError:
+            print('ERROR: Could open API key file')
+            sys.exit(1)
     if not keys:
         print('ERROR: Could not find any API key')
         sys.exit(1)
