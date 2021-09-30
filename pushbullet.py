@@ -7,7 +7,7 @@ from socket import gethostname
 from time import sleep
 
 from asyncio import get_event_loop
-from asyncpushbullet import AsyncPushbullet, InvalidKeyError
+from asyncpushbullet import AsyncPushbullet, InvalidKeyError, HttpError
 
 __location__ = path.realpath(path.join(getcwd(), path.dirname(__file__)))
 
@@ -54,6 +54,8 @@ async def _notify(key, title, body):
                     _ = await apb.async_push_note(title=title,
                                                   body=body,
                                                   device=device)
+    except HttpError:
+        print(f'WARNING: Overused API key {key}')
     except InvalidKeyError:
         print(f'ERROR: Invalid API key {key}')
         global ERROR  # pylint:disable=global-statement
