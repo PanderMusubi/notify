@@ -9,10 +9,12 @@ mobile devices.
 
 ### 1.1 Files
 
-The script `./pushbullet.py` sends a push notifications to Pushbullet. The receiving
-Pushbullet API keys are stored in `api-keys.txt`. This file is ignored by git
-and lines can be commented out by starting with `#`. The Python script expects
-the file with keys to be in the same directory as it is. An example is:
+The script `./pushbullet.py` sends a push notifications to Pushbullet. The
+receiving Pushbullet API keys are stored in
+`/usr/local/etc/pushbullet-api-keys.txt` or alternatively `./api-keys.txt`. This
+file is ignored by git and lines can be commented out by starting with `#`. The
+Python script expects the file with keys to be in the same directory as it is.
+An example is:
 
     # Peter
     #o.SXuTdImi6lfGGPhA2ShXaxEddGkmDXxb
@@ -23,7 +25,7 @@ the file with keys to be in the same directory as it is. An example is:
 
 Create a free account at [Pushbullet](https://pushbullet.com) and get an access
 token on https://www.pushbullet.com/#settings/account and add it to the file
-`api-keys.txt`.
+`/usr/local/etc/pushbullet-api-keys.txt` or alternatively `./api-keys.txt`.
 
 Pushbullet will disable keys when more than 500 pushes are send per month for an
 account. This will result in an error in the Python script. The next month the

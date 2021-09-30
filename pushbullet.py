@@ -16,7 +16,7 @@ def get_keys():
     '''Get all API keys from the file api-keys.txt.'''
     keys = set()
     try:
-        with open('/usr/local/etc/pushbullet-api-keys.txt') as key_file:
+        with open(path.join(__location__, 'api-keys.txt')) as key_file:
             for line in key_file:
                 line = line[:-1]
                 if line == '' or line[0] == '#':
@@ -24,7 +24,7 @@ def get_keys():
                 keys.add(line.strip())
     except FileNotFoundError:
         try:
-            with open(path.join(__location__, 'api-keys.txt')) as key_file:
+            with open('/usr/local/etc/pushbullet-api-keys.txt') as key_file:
                 for line in key_file:
                     line = line[:-1]
                     if line == '' or line[0] == '#':
