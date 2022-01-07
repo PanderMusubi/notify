@@ -13,28 +13,22 @@ __location__ = path.realpath(path.join(getcwd(), path.dirname(__file__)))
 def get_tokens():
     '''Get all tokens from file.'''
     tokens = []
+    token_file = None
     try:
-        with open(path.join(__location__, 'gotify-tokens.txt')) as token_file:
-            for line in token_file:
-                line = line[:-1]
-                if line == '' or line[0] == '#':
-                    continue
-                pair = line.strip().split('\t')
-                if pair not in tokens:
-                    tokens.append(pair)
+        token_file = open(path.join(__location__, 'gotify-tokens.txt'))  # pylint:disable=consider-using-with
     except FileNotFoundError:
         try:
-            with open('/usr/local/etc/gotify-tokens.txt') as token_file:
-                for line in token_file:
-                    line = line[:-1]
-                    if line == '' or line[0] == '#':
-                        continue
-                    pair = line.strip().split('\t')
-                    if pair not in tokens:
-                        tokens.append(pair)
+            token_file = open('/usr/local/etc/gotify-tokens.txt')  # pylint:disable=consider-using-with
         except FileNotFoundError:
             print('ERROR: Could open tokens file', file=sys.stderr)
             sys.exit(1)
+    for line in token_file:
+        line = line[:-1]
+        if line == '' or line[0] == '#':
+            continue
+        pair = line.strip().split('\t')
+        if pair not in tokens:
+            tokens.append(pair)
     if not tokens:
         print('ERROR: Could not find any tokens', file=sys.stderr)
         sys.exit(1)

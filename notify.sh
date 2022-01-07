@@ -1,5 +1,9 @@
-./gotifypush.py "$@"
-./pushbullet.py "$@"
+if [ -e ./gotifypush.py ]; then
+    ./gotifypush.py "$@"
+fi
+if [ -e ./pushbullet.py ]; then
+    ./pushbullet.py "$@"
+fi
 if [ $(which wall|wc -l) -gt 0 ]; then
     wall "$@"
 fi
