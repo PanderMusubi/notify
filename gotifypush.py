@@ -4,6 +4,7 @@
 import sys
 from os import path, getcwd
 from socket import gethostname
+from json.decoder import JSONDecodeError
 
 from gotify import gotify, GotifyError
 
@@ -15,10 +16,10 @@ def get_tokens():
     tokens = []
     token_file = None
     try:
-        token_file = open(path.join(__location__, 'gotify-tokens.txt'))  # pylint:disable=consider-using-with
+        token_file = open(path.join(__location__, 'gotify-tokens.txt'))  # pylint:disable=consider-using-with,unspecified-encoding
     except FileNotFoundError:
         try:
-            token_file = open('/usr/local/etc/gotify-tokens.txt')  # pylint:disable=consider-using-with
+            token_file = open('/usr/local/etc/gotify-tokens.txt')  # pylint:disable=consider-using-with,unspecified-encoding
         except FileNotFoundError:
             print('ERROR: Could open tokens file', file=sys.stderr)
             sys.exit(1)
@@ -52,7 +53,7 @@ if __name__ == '__main__':
                 title=gethostname(),
                 priority=8,
             )
-        except GotifyError:
+        except (GotifyError, JSONDecodeError): #TODO
             print(f'ERROR: Exception for token {token} with base URL {base_url}', file=sys.stderr)
             ERROR = True
 

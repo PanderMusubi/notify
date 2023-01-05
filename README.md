@@ -38,7 +38,7 @@ recommended.
 Do the following installation:
 
     #sudo apt-get -y install python3-setuptools python3-pip python3-wheel
-    sudo pip3 install --upgrade gotify
+    sudo pip3 install -U gotify
 
 ### 1.4 Client-side installation
 
@@ -96,7 +96,13 @@ notification systems is recommended.
 Do the following installation:
 
     sudo apt-get -y install python3-setuptools python3-pip python3-wheel
-    sudo pip3 install --upgrade asyncpushbullet
+    sudo pip3 install -U asyncpushbullet
+
+In case pip3 cannot build wheels for yarl, frozenlist etc., install:
+
+    sudo apt-get -y install python3-yarl python3-frozenlist python3-aiohttp
+
+and run the pip3 command again.
 
 ### 2.4 Client-side installation
 

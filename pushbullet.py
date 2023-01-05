@@ -17,10 +17,10 @@ def get_tokens():
     tokens = set()
     token_file = None
     try:
-        token_file = open(path.join(__location__, 'pushbullet-tokens.txt'))  # pylint:disable=consider-using-with
+        token_file = open(path.join(__location__, 'pushbullet-tokens.txt'))  # pylint:disable=consider-using-with,unspecified-encoding
     except FileNotFoundError:
         try:
-            token_file = open('/usr/local/etc/pushbullet-tokens.txt')  # pylint:disable=consider-using-with
+            token_file = open('/usr/local/etc/pushbullet-tokens.txt')  # pylint:disable=consider-using-with,unspecified-encoding
         except FileNotFoundError:
             print('ERROR: Could open tokens file', file=sys.stderr)
             sys.exit(1)
